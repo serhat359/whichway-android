@@ -10,8 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<platform.version> 4.1.1.4
-			</platform.version>
+		<platform.version>4.1.1.4</platform.version>
 		<android.plugin.version>3.6.0</android.plugin.version>
 	</properties>
 
@@ -41,9 +40,9 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
 					<sdk>
-						<platform>16</platform>
+						<platform>18</platform>
 					</sdk>
-									</configuration>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

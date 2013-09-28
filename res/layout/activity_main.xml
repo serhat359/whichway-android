@@ -7,8 +7,48 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="27dp"
+        android:text="@string/enlem"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="54dp"
+        android:text="@string/boylam"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_marginLeft="36dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="@string/unknown"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/textLat"
+        android:text="@string/unknown"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

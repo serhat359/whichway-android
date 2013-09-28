@@ -1,22 +1,28 @@
 package com.akifbatur.whichway;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class HelloAndroidActivity extends Activity {
 
-    /**
-     * Called when the activity is first created.
-     * @param savedInstanceState If the activity is being re-initialized after 
-     * previously being shut down then this Bundle contains the data it most 
-     * recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
-     */
+    public static TextView textLat;
+    public static TextView textLong;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        textLat = (TextView)findViewById(R.id.textLat);
+        textLong = (TextView)findViewById(R.id.textLong);
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationListener ll = new MyLocationListener();
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
     }
 
     @Override
