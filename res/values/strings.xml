@@ -8,5 +8,11 @@
     <string name="enlem">Latitude:</string>
     <string name="boylam">Longitude:</string>
     <string name="unknown">Unknown</string>
+    <string name="crdX">X:</string>
+    <string name="textView4">X:</string>
+    <string name="none">None</string>
+    <string name="x">X:</string>
+    <string name="y">Y:</string>
+    <string name="z">Z:</string>
 
 </resources>
