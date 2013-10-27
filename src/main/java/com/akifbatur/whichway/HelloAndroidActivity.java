@@ -8,6 +8,7 @@ import android.view.Menu;
 public class HelloAndroidActivity extends Activity {
 
     /**
+     * Just a git test line
      * Called when the activity is first created.
      * @param savedInstanceState If the activity is being re-initialized after 
      * previously being shut down then this Bundle contains the data it most 
