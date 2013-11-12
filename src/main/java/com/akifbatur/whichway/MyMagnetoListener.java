@@ -5,7 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-public class MySensorListener extends Activity implements SensorEventListener{
+public class MyMagnetoListener extends Activity implements SensorEventListener{
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 		// TODO Auto-generated method stub
 		
