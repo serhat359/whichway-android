@@ -19,7 +19,7 @@ public class HelloAndroidActivity extends Activity{
 	public static TextView magX;
 	public static TextView magY;
 	public static TextView magZ;
-	public static ImageView image;
+	public static ImageView needle;
 	public static float currentDegree = 0f;
 	public static TextView tvHeading;
 	SensorManager sm;
@@ -52,7 +52,7 @@ public class HelloAndroidActivity extends Activity{
 		magZ = (TextView) findViewById(R.id.textZ);
 		
 		//Pusula ekranı
-		image = (ImageView) findViewById(R.id.imageViewCompass);
+		needle = (ImageView) findViewById(R.id.needle);
 		tvHeading = (TextView) findViewById(R.id.tvHeading);
 		
 		//Sensör kurulumları

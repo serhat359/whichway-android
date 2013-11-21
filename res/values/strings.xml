@@ -14,5 +14,6 @@
     <string name="x">X:</string>
     <string name="y">Y:</string>
     <string name="z">Z:</string>
+    <string name="heading">Heading: 0.0</string>
 
 </resources>

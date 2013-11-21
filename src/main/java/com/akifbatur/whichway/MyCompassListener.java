@@ -31,7 +31,7 @@ public class MyCompassListener extends Activity implements SensorEventListener{
 		ra.setFillAfter(true);
 		
 		// Start the animation
-		HelloAndroidActivity.image.startAnimation(ra);
+		HelloAndroidActivity.needle.startAnimation(ra);
 		HelloAndroidActivity.currentDegree = -degree;
 	}
 }

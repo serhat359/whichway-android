@@ -89,14 +89,6 @@
         android:text="@string/x"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageView
-        android:id="@+id/imageViewCompass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textZ"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/img_compass" />
-
     <TextView
         android:id="@+id/textLat"
         android:layout_width="wrap_content"
@@ -113,6 +105,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textView2"
-        android:text="Heading: 0.0" />
+        android:text="@string/heading" />
+
+    <ImageView
+        android:id="@+id/compass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textZ"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/compass" />
+
+    <ImageView
+        android:id="@+id/needle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/compass"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/needle" />
 
 </RelativeLayout>
