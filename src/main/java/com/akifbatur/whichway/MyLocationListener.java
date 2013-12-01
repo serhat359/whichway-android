@@ -10,8 +10,8 @@ public class MyLocationListener extends Activity implements LocationListener{
 		if(location != null){
 			double pLong = location.getLongitude();
 			double pLat = location.getLatitude();
-			HelloAndroidActivity.textLat.setText(Double.toString(pLat));
-			HelloAndroidActivity.textLong.setText(Double.toString(pLong));
+			HelloAndroidActivity.textLat.setText(convert(pLat));
+			HelloAndroidActivity.textLong.setText(convert(pLong));
 		}
 		else{
 			HelloAndroidActivity.textLat.setText("Unknown");
@@ -19,6 +19,12 @@ public class MyLocationListener extends Activity implements LocationListener{
 		}
 	}
 
+	public String convert(double d){
+		String s = Location.convert(d, Location.FORMAT_SECONDS);
+		String[] ss = s.split(":|\\.");
+		return ss[0] + "° " + ss[1] + "\" " + ss[2] + "\'";
+	}
+	
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
 
