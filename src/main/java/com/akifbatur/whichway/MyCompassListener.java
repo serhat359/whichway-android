@@ -1,13 +1,13 @@
 package com.akifbatur.whichway;
 
-import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
-public class MyCompassListener extends Activity implements SensorEventListener{
+public class MyCompassListener implements SensorEventListener{
+	
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 		// TODO Auto-generated method stub
 		

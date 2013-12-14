@@ -1,11 +1,10 @@
 package com.akifbatur.whichway;
 
-import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-public class MyMagnetoListener extends Activity implements SensorEventListener{
+public class MyMagnetoListener implements SensorEventListener{
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 		// TODO Auto-generated method stub
 		

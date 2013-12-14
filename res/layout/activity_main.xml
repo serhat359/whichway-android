@@ -6,6 +6,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
+    <Button
+        android:id="@+id/btnIstanbul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/compass"
+        android:onClick="onClick_Istanbul"
+        android:text="İstanbul" />
+
+    <Button
+        android:id="@+id/btnMarmara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textLat"
+        android:layout_toRightOf="@+id/compass"
+        android:onClick="onClick_Marmara"
+        android:text="Marmara" />
+    
+	<fragment
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.google.android.gms.maps.SupportMapFragment"
+          android:layout_below="@+id/btnSearch"/>
+	
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -123,5 +148,24 @@
         android:layout_alignTop="@+id/compass"
         android:layout_centerHorizontal="true"
         android:src="@drawable/needle" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnMarmara"
+        android:layout_alignBottom="@+id/btnMarmara"
+        android:layout_alignRight="@+id/map"
+        android:onClick="onClick_Search"
+        android:text="Search" />
+
+    <EditText
+        android:id="@+id/textSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnIstanbul"
+        android:layout_alignBottom="@+id/btnIstanbul"
+        android:layout_toLeftOf="@+id/btnSearch"
+        android:ems="10" />
 
 </RelativeLayout>
