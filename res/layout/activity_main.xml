@@ -166,6 +166,8 @@
         android:layout_alignBaseline="@+id/btnIstanbul"
         android:layout_alignBottom="@+id/btnIstanbul"
         android:layout_toLeftOf="@+id/btnSearch"
-        android:ems="10" />
+        android:ems="10" 
+        android:inputType="text"
+        android:singleLine="true"/>
 
 </RelativeLayout>
