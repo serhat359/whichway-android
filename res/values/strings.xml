@@ -5,5 +5,14 @@
     <string name="hello">Hello WhichWay!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Welcome to WhichWay</string>
-
+    <string name="enlem">Latitude:</string>
+    <string name="boylam">Longitude:</string>
+    <string name="unknown">Unknown</string>
+    <string name="crdX">X:</string>
+    <string name="textView4">X:</string>
+    <string name="none">None</string>
+    <string name="x">X:</string>
+    <string name="y">Y:</string>
+    <string name="z">Z:</string>
+    <string name="heading">Heading: 0.0</string>
 </resources>

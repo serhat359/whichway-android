@@ -1,3 +1,10 @@
 /target
 /bin
+<<<<<<< HEAD
+=======
+/bin/
+/bin/classes/
+/bin/classes/com/
+/bin/classes/com/akifbatur/
+>>>>>>> 6_real_simple_compass
 /bin/classes/com/akifbatur/whichway
