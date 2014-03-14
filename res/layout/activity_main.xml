@@ -6,39 +6,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <Button
-        android:id="@+id/btnIstanbul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/compass"
-        android:onClick="onClick_Istanbul"
-        android:text="İstanbul" />
-
-    <Button
-        android:id="@+id/btnMarmara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textLat"
-        android:layout_toRightOf="@+id/compass"
-        android:onClick="onClick_Marmara"
-        android:text="Marmara" />
-    
-	<fragment
-          android:id="@+id/map"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:name="com.google.android.gms.maps.SupportMapFragment"
-          android:layout_below="@+id/btnSearch"/>
-	
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:text="@string/enlem"
-        android:textSize="24sp" />
-
     <TextView
         android:id="@+id/textLong"
         android:layout_width="wrap_content"
@@ -53,66 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
         android:text="@string/boylam"
         android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textX"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textLong"
-        android:layout_alignTop="@+id/textView4"
-        android:text="@string/none"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textX"
-        android:layout_alignTop="@+id/textView5"
-        android:text="@string/none"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textZ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textY"
-        android:layout_alignTop="@+id/textView6"
-        android:text="@string/none"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="17dp"
-        android:text="@string/y"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_below="@+id/textView5"
-        android:layout_marginTop="17dp"
-        android:text="@string/z"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="14dp"
-        android:text="@string/x"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textLat"
@@ -124,50 +35,158 @@
         android:text="@string/unknown"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/tvHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="@string/heading" />
-
     <ImageView
         android:id="@+id/compass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textZ"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
         android:src="@drawable/compass" />
 
     <ImageView
         android:id="@+id/needle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/compass"
         android:layout_alignTop="@+id/compass"
-        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
         android:src="@drawable/needle" />
 
-    <Button
-        android:id="@+id/btnSearch"
+    <TextView
+        android:id="@+id/angle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnMarmara"
-        android:layout_alignBottom="@+id/btnMarmara"
-        android:layout_alignRight="@+id/map"
-        android:onClick="onClick_Search"
-        android:text="Search" />
+        android:layout_alignTop="@+id/tvHeading"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/tvHeading"
+        android:text="@string/angleDiff" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/current"
+        android:layout_marginTop="12dp"
+        android:text="@string/enlem"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:text="@string/heading" />
 
     <EditText
         android:id="@+id/textSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnIstanbul"
-        android:layout_alignBottom="@+id/btnIstanbul"
-        android:layout_toLeftOf="@+id/btnSearch"
-        android:ems="10" 
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="36dp"
+        android:ems="10"
         android:inputType="text"
-        android:singleLine="true"/>
+        android:singleLine="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textSearch"
+        android:layout_toRightOf="@+id/textSearch"
+        android:onClick="onClick_Search"
+        android:text="@string/search" />
+
+    <Button
+        android:id="@+id/chsFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/saveLoc"
+        android:layout_below="@+id/saveLoc"
+        android:onClick="onClick_Search"
+        android:text="@string/chsFav" />
+
+    <TextView
+        android:id="@+id/current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="53dp"
+        android:text="@string/gpsLoc"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/srchCoor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/drctn"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/srchCoor"
+        android:layout_marginTop="12dp"
+        android:text="@string/enlem"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView01"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/boylam"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/geoLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/TextView01"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/TextView02"
+        android:text="@string/none"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/geoLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/geoLat"
+        android:layout_alignTop="@+id/TextView02"
+        android:text="@string/none"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/saveLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/srchCoor"
+        android:layout_toRightOf="@+id/btnSearch"
+        android:onClick="onClick_Search"
+        android:text="@string/savToFav" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/angle"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/angle"
+        android:text="@string/distance" />
 
 </RelativeLayout>

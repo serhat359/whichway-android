@@ -14,5 +14,12 @@
     <string name="x">X:</string>
     <string name="y">Y:</string>
     <string name="z">Z:</string>
-    <string name="heading">Heading: 0.0</string>
+    <string name="heading">Heading: None</string>
+    <string name="angleDiff">AngleDif: None</string>
+    <string name="search">Search</string>
+    <string name="savToFav">Add to Favorites</string>
+    <string name="chsFav">Choose Saved Location</string>
+    <string name="gpsLoc">GPS Coordinates</string>
+    <string name="drctn">Direction</string>
+    <string name="distance">Distance: Unknown</string>
 </resources>
