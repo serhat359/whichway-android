@@ -16,9 +16,15 @@ public class MyCompassListener implements SensorEventListener{
 		int degree = (int)(event.values[0]);
 		int angle = HelloAndroidActivity.angle;
 		int newAngle = degree - angle;
+		
 		HelloAndroidActivity.tvHeading.setText("Heading: " + degree + " degrees");
 		HelloAndroidActivity.angleDiff.setText("AngleDiff: " + angle + " degrees");
 		HelloAndroidActivity.distance.setText(HelloAndroidActivity.dist);
+		
+		if(HelloAndroidActivity.geoSet){
+			HelloAndroidActivity.geoLat.setText(Functions.convertSeconds(HelloAndroidActivity.lat));
+			HelloAndroidActivity.geoLong.setText(Functions.convertSeconds(HelloAndroidActivity.lng));
+		}
 
 		// create a rotation animation (reverse turn degree degrees)
 		RotateAnimation ra = new RotateAnimation(HelloAndroidActivity.currentDegree, -newAngle,

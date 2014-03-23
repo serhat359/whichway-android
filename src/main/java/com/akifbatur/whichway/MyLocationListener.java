@@ -10,20 +10,15 @@ public class MyLocationListener implements LocationListener{
 		if(location != null){
 			double pLong = location.getLongitude();
 			double pLat = location.getLatitude();
-			HelloAndroidActivity.textLat.setText(convertSeconds(pLat));
-			HelloAndroidActivity.textLong.setText(convertSeconds(pLong));
+			HelloAndroidActivity.textLat.setText(Functions.convertSeconds(pLat));
+			HelloAndroidActivity.textLong.setText(Functions.convertSeconds(pLong));
 			HelloAndroidActivity.gps.setCoordinates(pLat, pLong);
+			HelloAndroidActivity.gpsSet = true;
 		}
 		else{
 			HelloAndroidActivity.textLat.setText("Unknown");
 			HelloAndroidActivity.textLong.setText("Unknown");
 		}
-	}
-
-	public static String convertSeconds(double d){
-		String s = Location.convert(d, Location.FORMAT_SECONDS);
-		String[] ss = s.split(":|\\.|,");
-		return ss[0] + "° " + ss[1] + "\" " + ss[2] + "\'";
 	}
 
 	public void onProviderDisabled(String provider){

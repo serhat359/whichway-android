@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">WhichWay</string>
     <string name="hello">Hello WhichWay!</string>
     <string name="action_settings">Settings</string>
@@ -18,8 +17,17 @@
     <string name="angleDiff">AngleDif: None</string>
     <string name="search">Search</string>
     <string name="savToFav">Add to Favorites</string>
-    <string name="chsFav">Choose Saved Location</string>
+    <string name="chsFav">Saved Locations</string>
     <string name="gpsLoc">GPS Coordinates</string>
     <string name="drctn">Direction</string>
     <string name="distance">Distance: Unknown</string>
+    <string name="addtofav">Add to Favorites</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="locationName">Location</string>
+    <string name="addressOrCoordinate">Address or Coordinate</string>
+    <string name="current">Current</string>
+    <string name="searched">Searched</string>
+    <string name="favorites">Favorites</string>
+    <string name="add">Add</string>
 </resources>

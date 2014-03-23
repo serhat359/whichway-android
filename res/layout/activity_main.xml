@@ -84,10 +84,11 @@
         android:id="@+id/textSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
         android:layout_marginTop="36dp"
         android:ems="10"
+        android:hint="@string/addressOrCoordinate"
         android:inputType="text"
         android:singleLine="true" >
 
@@ -109,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/saveLoc"
         android:layout_below="@+id/saveLoc"
-        android:onClick="onClick_Search"
+        android:onClick="onClick_GetFavorites"
         android:text="@string/chsFav" />
 
     <TextView
@@ -177,7 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/srchCoor"
         android:layout_toRightOf="@+id/btnSearch"
-        android:onClick="onClick_Search"
+        android:onClick="onClick_AddToFavorites"
         android:text="@string/savToFav" />
 
     <TextView
@@ -188,5 +189,14 @@
         android:layout_marginLeft="28dp"
         android:layout_toRightOf="@+id/angle"
         android:text="@string/distance" />
+
+    <TextView
+        android:id="@+id/debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/distance"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/distance"
+        android:text="Debug" />
 
 </RelativeLayout>

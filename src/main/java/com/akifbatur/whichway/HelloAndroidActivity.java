@@ -3,6 +3,7 @@ package com.akifbatur.whichway;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 import java.util.Timer;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,17 +30,18 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class HelloAndroidActivity extends FragmentActivity{
 
-	double lat = 0;
-	double lng = 0;
+	static double lat = 0;
+	static double lng = 0;
 	static int currentDegree = 0;
 	static int angle = 0;
 	static String dist = "Unknown";
-	String arananYer = "";
-	String sText;
+	static List<Favorite> favoriteList = null;
+	static String[] favorites = new String[0];
 
 	public static TextView textLat;
 	public static TextView textLong;
@@ -49,12 +51,19 @@ public class HelloAndroidActivity extends FragmentActivity{
 	public static TextView geoLat;
 	public static TextView geoLong;
 	public static ImageView needle;
+	//public static EditText locationName;
+	//public static RadioGroup radioGroup;
+	// Debug
+	public static TextView debug;
 
+	static DatabaseHandler db;
 	SensorManager sm;
 	MyCompassListener cl = new MyCompassListener();
 	Sensor compass;
 	static Vector gps = new Vector(40.98707, 29.053081); // GPS koordinatı (İstanbul)
-	Vector geo = new Vector(0, 0, 1); // Geocoder koordinatı (Kuzey Kutbu)
+	static boolean gpsSet = false; // Konum bulundu mu?
+	static Vector geo = new Vector(0, 0, 1); // Geocoder koordinatı (Kuzey Kutbu)
+	static boolean geoSet = false; // Bir yer arandı mı?
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -71,6 +80,9 @@ public class HelloAndroidActivity extends FragmentActivity{
 		// GPS'i dinlemeye basla
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 
+		// Database kurulumu
+		db = new DatabaseHandler(this);
+
 		// Pusula ekranı
 		textLat = (TextView)findViewById(R.id.textLat);
 		textLong = (TextView)findViewById(R.id.textLong);
@@ -80,18 +92,24 @@ public class HelloAndroidActivity extends FragmentActivity{
 		geoLat = (TextView)findViewById(R.id.geoLat);
 		geoLong = (TextView)findViewById(R.id.geoLong);
 		needle = (ImageView)findViewById(R.id.needle);
+		//locationName = (EditText)findViewById(R.id.locationName);
+		//radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
+		// debug
+		debug = (TextView)findViewById(R.id.debug);
 
 		// Sensör kurulumları
 		sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		compass = sm.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
-		// Konumlar arası açı hesaplama için timer
+		// Konumlar arası açı ve uzaklık hesaplama için timer
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new java.util.TimerTask(){
 			@Override
 			public void run(){
-				angle = (int)gps.getDirection(geo);
-				dist = gps.getDistance(geo);
+				if(gpsSet && geoSet){
+					angle = (int)gps.getDirection(geo);
+					dist = gps.getDistance(geo);
+				}
 			}
 		}, 1000, 5000);
 	}
@@ -117,16 +135,33 @@ public class HelloAndroidActivity extends FragmentActivity{
 
 	public void onClick_Search(View v) throws IOException, ParserConfigurationException, SAXException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
-		sText = search.getText().toString();
-		sText = sText.replaceAll("\\s+", "+");
-		// Yeni bir thread ile aranan yerin koordinatlarını al.
-		new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address=" + sText
-				+ "&sensor=true");
-		// Direction'ı güncelle
-		// TextView glat = (TextView)findViewById(R.id.geoLat);
-		// TextView glong = (TextView)findViewById(R.id.geoLong);
-		// glat.setText(MyLocationListener.convertSeconds(lat));
-		// glong.setText(MyLocationListener.convertSeconds(lng));
+		String sText = search.getText().toString();
+
+		String num = "\\d+(((,|\\.)\\d+)|\\s*\\d+(\\s*\\d+)?)?";
+		String pattern = "([nNsS-])?\\s*" + num + "\\s*([eEwW-]|,)\\s*" + num;
+
+		if(sText.matches(pattern)){
+			// TODO
+		}
+		else{
+			sText = sText.replaceAll("\\s+", "+");
+			// Yeni bir thread ile aranan yerin koordinatlarını al.
+			new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address=" + sText
+					+ "&sensor=true");
+		}
+	}
+
+	public void onClick_AddToFavorites(View v){
+		new DialogAddToFavorites().show(getSupportFragmentManager(), "atf");
+	}
+
+	public void onClick_GetFavorites(View v){
+		favoriteList = db.getAllFavorites();
+		// Listeden array'e doldur
+		favorites = new String[favoriteList.size()];
+		for(int i = 0; i < favoriteList.size(); i++)
+			favorites[i] = favoriteList.get(i).getLocation();
+		new DialogShowFavorites().show(getSupportFragmentManager(), "gf");
 	}
 
 	private class RetreiveFeedTask extends AsyncTask<String, Integer, String>{
@@ -142,30 +177,19 @@ public class HelloAndroidActivity extends FragmentActivity{
 
 				doc.getDocumentElement().normalize();
 
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
 				NodeList nList = doc.getElementsByTagName("result");
-
-				System.out.println("----------------------------");
 
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					Node nNode = nList.item(temp);
-					System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
 					if(nNode.getNodeType() == Node.ELEMENT_NODE){
 						Element eElement = (Element)nNode;
-						System.out.println("Latitude : "
-								+ eElement.getElementsByTagName("lat").item(0).getTextContent());
-						System.out.println("Longitute : "
-								+ eElement.getElementsByTagName("lng").item(0).getTextContent());
 						lat = Double.parseDouble(eElement.getElementsByTagName("lat").item(0)
 								.getTextContent());
 						lng = Double.parseDouble(eElement.getElementsByTagName("lng").item(0)
 								.getTextContent());
-						arananYer = eElement.getElementsByTagName("formatted_address").item(0)
-								.getTextContent();
 						// Geo update
 						geo.setCoordinates(lat, lng);
+						geoSet = true;
 					}
 				}
 			}
