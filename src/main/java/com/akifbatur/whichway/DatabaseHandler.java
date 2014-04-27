@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		onCreate(db);
 	}
 
-	public void addFavorite(Favorite f){
+	public long addFavorite(Favorite f){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 
@@ -48,8 +48,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_LAT, f.getLatitude());
 		values.put(KEY_LONG, f.getLongitude());
 
-		db.insert(TABLE_CONTACTS, null, values);
+		long ret = db.insert(TABLE_CONTACTS, null, values);
 		db.close();
+		return ret;
 	}
 
 	public ArrayList<Favorite> getAllFavorites(){

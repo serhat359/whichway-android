@@ -4,6 +4,8 @@ public class Vector{
 	public double x;
 	public double y;
 	public double z;
+	private double lat = 90;
+	private double lng = 0;
 
 	// Uzay koordinatlarından vektör oluşturur
 	public Vector(double x, double y, double z){
@@ -13,15 +15,25 @@ public class Vector{
 	}
 
 	// Coğrafik koordinatlardan vektör oluşturur
-	public Vector(double lat, double lon){
-		setCoordinates(lat, lon);
+	public Vector(double lat, double lng){
+		setCoordinates(lat, lng);
+		this.lat = lat;
+		this.lng = lng;
 	}
 
-	public void setCoordinates(double lat, double lon){
+	public void setCoordinates(double lat, double lng){
 		this.z = Math.sin(Math.toRadians(lat));
 		double r = Math.cos(Math.toRadians(lat));
-		this.y = r * Math.sin(Math.toRadians(lon));
-		this.x = r * Math.cos(Math.toRadians(lon));
+		this.y = r * Math.sin(Math.toRadians(lng));
+		this.x = r * Math.cos(Math.toRadians(lng));
+	}
+	
+	public double getLat(){
+		return lat;
+	}
+	
+	public double getLong(){
+		return lng;
 	}
 
 	public double sqr(){
@@ -43,7 +55,13 @@ public class Vector{
 		Vector a = this;
 		double dot = a.dot(v);
 		double magn = a.magn() * v.magn();
-		return Math.toDegrees(Math.acos(dot / magn));
+		double value = dot / magn;
+		if(value > 1)
+			value = 1;
+		if(value < -1)
+			value = -1;
+		double result = Math.toDegrees(Math.acos(value));
+		return result;
 	}
 
 	// Vectörün v'ye dik düzlemdeki izdişümünü döndürür
@@ -51,7 +69,7 @@ public class Vector{
 		Vector a = this;
 		double diff = a.dot(v);
 		double effect = v.sqr();
-		double op = diff / effect; // TODO exception olabilir
+		double op = diff / effect;
 		double x = a.x - op * v.x;
 		double y = a.y - op * v.y;
 		double z = a.z - op * v.z;
@@ -74,7 +92,8 @@ public class Vector{
 	}
 
 	public String getDistance(Vector v){
-		double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360 km
+		double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360
+											// km
 		double dist = constant * this.angle(v);
 		try{
 			if(dist >= 100)

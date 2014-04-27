@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -25,6 +26,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
@@ -33,7 +35,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class HelloAndroidActivity extends FragmentActivity{
+public class HelloAndroidActivity extends FragmentActivity implements DialogAddToFavorites.DialogListener{
 
 	static double lat = 0;
 	static double lng = 0;
@@ -51,8 +53,6 @@ public class HelloAndroidActivity extends FragmentActivity{
 	public static TextView geoLat;
 	public static TextView geoLong;
 	public static ImageView needle;
-	//public static EditText locationName;
-	//public static RadioGroup radioGroup;
 	// Debug
 	public static TextView debug;
 
@@ -62,7 +62,7 @@ public class HelloAndroidActivity extends FragmentActivity{
 	Sensor compass;
 	static Vector gps = new Vector(40.98707, 29.053081); // GPS koordinatı (İstanbul)
 	static boolean gpsSet = false; // Konum bulundu mu?
-	static Vector geo = new Vector(0, 0, 1); // Geocoder koordinatı (Kuzey Kutbu)
+	static Vector geo = new Vector(90, 0); // Geocoder koordinatı (Kuzey Kutbu)
 	static boolean geoSet = false; // Bir yer arandı mı?
 
 	@Override
@@ -92,8 +92,6 @@ public class HelloAndroidActivity extends FragmentActivity{
 		geoLat = (TextView)findViewById(R.id.geoLat);
 		geoLong = (TextView)findViewById(R.id.geoLong);
 		needle = (ImageView)findViewById(R.id.needle);
-		//locationName = (EditText)findViewById(R.id.locationName);
-		//radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
 		// debug
 		debug = (TextView)findViewById(R.id.debug);
 
@@ -152,7 +150,8 @@ public class HelloAndroidActivity extends FragmentActivity{
 	}
 
 	public void onClick_AddToFavorites(View v){
-		new DialogAddToFavorites().show(getSupportFragmentManager(), "atf");
+		DialogAddToFavorites atf = new DialogAddToFavorites();
+		atf.show(getSupportFragmentManager(), "atf");
 	}
 
 	public void onClick_GetFavorites(View v){
@@ -198,5 +197,30 @@ public class HelloAndroidActivity extends FragmentActivity{
 			}
 			return null;
 		}
+	}
+
+	public void onDialogPositiveClick(DialogFragment df){
+		Dialog dialog = df.getDialog();
+		
+		EditText et = (EditText)dialog.findViewById(R.id.locationName);
+		String name = et.getText().toString();
+		RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
+		int checked = rg.getCheckedRadioButtonId();
+		// TODO
+		Vector pos = null;
+		if(checked == R.id.radioCurrent)
+			pos = gps;
+		else if(checked == R.id.radioSearched)
+			pos = geo;
+		// debug
+		else{
+			debug.setText("Hata-radio");
+		}
+		
+		long ret = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
+		if(ret>=0)
+			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(), "msg");
+		else
+			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(), "msg");
 	}
 }
