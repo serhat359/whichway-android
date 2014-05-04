@@ -22,8 +22,8 @@ public class MyCompassListener implements SensorEventListener{
 		HelloAndroidActivity.distance.setText(HelloAndroidActivity.dist);
 		
 		if(HelloAndroidActivity.geoSet){
-			HelloAndroidActivity.geoLat.setText(Functions.convertSeconds(HelloAndroidActivity.lat));
-			HelloAndroidActivity.geoLong.setText(Functions.convertSeconds(HelloAndroidActivity.lng));
+			HelloAndroidActivity.geoLat.setText(Functions.convertSeconds(HelloAndroidActivity.geo.getLat()));
+			HelloAndroidActivity.geoLong.setText(Functions.convertSeconds(HelloAndroidActivity.geo.getLong()));
 		}
 
 		// create a rotation animation (reverse turn degree degrees)

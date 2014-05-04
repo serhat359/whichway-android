@@ -35,10 +35,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class HelloAndroidActivity extends FragmentActivity implements DialogAddToFavorites.DialogListener{
+public class HelloAndroidActivity extends FragmentActivity implements DialogAddToFavorites.DialogListener, DialogShowFavorites.DialogListener{
 
-	static double lat = 0;
-	static double lng = 0;
 	static int currentDegree = 0;
 	static int angle = 0;
 	static String dist = "Unknown";
@@ -150,8 +148,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 	}
 
 	public void onClick_AddToFavorites(View v){
-		DialogAddToFavorites atf = new DialogAddToFavorites();
-		atf.show(getSupportFragmentManager(), "atf");
+		new DialogAddToFavorites().show(getSupportFragmentManager(), "atf");
 	}
 
 	public void onClick_GetFavorites(View v){
@@ -182,9 +179,9 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 					Node nNode = nList.item(temp);
 					if(nNode.getNodeType() == Node.ELEMENT_NODE){
 						Element eElement = (Element)nNode;
-						lat = Double.parseDouble(eElement.getElementsByTagName("lat").item(0)
+						double lat = Double.parseDouble(eElement.getElementsByTagName("lat").item(0)
 								.getTextContent());
-						lng = Double.parseDouble(eElement.getElementsByTagName("lng").item(0)
+						double lng = Double.parseDouble(eElement.getElementsByTagName("lng").item(0)
 								.getTextContent());
 						// Geo update
 						geo.setCoordinates(lat, lng);
@@ -201,26 +198,26 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 
 	public void onDialogPositiveClick(DialogFragment df){
 		Dialog dialog = df.getDialog();
-		
 		EditText et = (EditText)dialog.findViewById(R.id.locationName);
 		String name = et.getText().toString();
 		RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
 		int checked = rg.getCheckedRadioButtonId();
-		// TODO
 		Vector pos = null;
 		if(checked == R.id.radioCurrent)
 			pos = gps;
 		else if(checked == R.id.radioSearched)
 			pos = geo;
-		// debug
-		else{
-			debug.setText("Hata-radio");
-		}
 		
-		long ret = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
-		if(ret>=0)
+		long retVal = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
+		if(retVal >= 0)
 			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(), "msg");
 		else
 			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(), "msg");
+	}
+	
+	public void favoriteChosen(int id){
+		Favorite chosen = favoriteList.get(id);
+		geo.setCoordinates(chosen.getLatitude(), chosen.getLongitude());
+		geoSet = true;
 	}
 }

@@ -8,7 +8,7 @@ public class Vector{
 	private double lng = 0;
 
 	// Uzay koordinatlarından vektör oluşturur
-	public Vector(double x, double y, double z){
+	private Vector(double x, double y, double z){
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -17,8 +17,6 @@ public class Vector{
 	// Coğrafik koordinatlardan vektör oluşturur
 	public Vector(double lat, double lng){
 		setCoordinates(lat, lng);
-		this.lat = lat;
-		this.lng = lng;
 	}
 
 	public void setCoordinates(double lat, double lng){
@@ -26,6 +24,8 @@ public class Vector{
 		double r = Math.cos(Math.toRadians(lat));
 		this.y = r * Math.sin(Math.toRadians(lng));
 		this.x = r * Math.cos(Math.toRadians(lng));
+		this.lat = lat;
+		this.lng = lng;
 	}
 	
 	public double getLat(){

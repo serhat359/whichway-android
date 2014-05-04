@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
 public class DialogAddToFavorites extends DialogFragment{
@@ -53,9 +54,12 @@ public class DialogAddToFavorites extends DialogFragment{
 			Button positiveButton = (Button)d.getButton(Dialog.BUTTON_POSITIVE);
 			positiveButton.setOnClickListener(new View.OnClickListener(){
 				public void onClick(View v){
+					EditText edittext = (EditText)getDialog().findViewById(R.id.locationName);
 					RadioGroup radioGroup = (RadioGroup)getDialog().findViewById(R.id.radioGroup);
 					int checked = radioGroup.getCheckedRadioButtonId();
-					if(checked<0)
+					if(edittext.getText().toString().equals(""))
+						new DialogMessage().setMessage("Please set a name").show(getFragmentManager(), tag);
+					else if(checked<0)
 						new DialogMessage().setMessage("Please choose an option").show(getFragmentManager(), tag);
 					else if(checked == R.id.radioCurrent && !HelloAndroidActivity.gpsSet)
 						new DialogMessage().setMessage("No GPS data").show(getFragmentManager(), tag);
