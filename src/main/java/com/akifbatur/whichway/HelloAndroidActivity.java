@@ -3,6 +3,7 @@ package com.akifbatur.whichway;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Timer;
 
@@ -140,15 +141,16 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 			// TODO
 		}
 		else{
-			sText = sText.replaceAll("\\s+", "+");
 			// Yeni bir thread ile aranan yerin koordinatlarını al.
-			new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address=" + sText
-					+ "&sensor=true");
+			new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
+					+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
 		}
 	}
 
 	public void onClick_AddToFavorites(View v){
-		new DialogAddToFavorites().show(getSupportFragmentManager(), "atf");
+		EditText search = (EditText)findViewById(R.id.textSearch);
+		String sText = search.getText().toString();
+		new DialogAddToFavorites().setMessage(sText).show(getSupportFragmentManager(), "atf");
 	}
 
 	public void onClick_GetFavorites(View v){

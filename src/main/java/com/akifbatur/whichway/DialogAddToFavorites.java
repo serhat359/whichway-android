@@ -13,8 +13,14 @@ import android.widget.RadioGroup;
 
 public class DialogAddToFavorites extends DialogFragment{
 
+	String text = "";
 	DialogListener mListener;
 	String tag = "notSet";
+	
+	public DialogAddToFavorites setMessage(String text){
+		this.text = text;
+		return this;
+	}
 	
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -50,6 +56,9 @@ public class DialogAddToFavorites extends DialogFragment{
 	public void onStart(){
 		super.onStart();
 		AlertDialog d = (AlertDialog)getDialog();
+		EditText edittext = (EditText)getDialog().findViewById(R.id.locationName);
+		edittext.setText(text);
+		
 		if(d != null){
 			Button positiveButton = (Button)d.getButton(Dialog.BUTTON_POSITIVE);
 			positiveButton.setOnClickListener(new View.OnClickListener(){

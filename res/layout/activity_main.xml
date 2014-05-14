@@ -196,7 +196,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/distance"
         android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/distance"
-        android:text="Debug" />
+        android:layout_toRightOf="@+id/distance" />
 
 </RelativeLayout>
