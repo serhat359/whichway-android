@@ -79,6 +79,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		LocationListener ll = new MyLocationListener();
 		// GPS'i dinlemeye basla
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, ll);
 
 		// Database kurulumu
 		db = new DatabaseHandler(this);
