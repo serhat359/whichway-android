@@ -26,12 +26,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db){
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "(" + KEY_ID
-				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_LAT + " DOUBLE, "
-				+ KEY_LONG + " DOUBLE" + ")";
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_LAT
+				+ " DOUBLE, " + KEY_LONG + " DOUBLE" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 		// TODO database ilk yapıldığında eklenecekler buraya insert ile yazılacak
-		//addFavorite(new Favorite("Paris", 48.85661, 2.35222));
-		//addFavorite(new Favorite("Kaaba", 21.42162, 39.82479));
+		// addFavorite(new Favorite("Paris", 48.85661, 2.35222));
+		// addFavorite(new Favorite("Kaaba", 21.42162, 39.82479));
 	}
 
 	@Override
@@ -83,7 +83,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_LAT, f.getLatitude());
 		values.put(KEY_LONG, f.getLongitude());
 
-		db.update(TABLE_CONTACTS, values, KEY_ID + " = ?", new String[] { String.valueOf(f.getId()) });
+		db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
+				new String[] { String.valueOf(f.getId()) });
 	}
 
 	public void deleteFavorite(Favorite f){ // Use only on objects got from the database

@@ -1,9 +1,9 @@
 package com.akifbatur.whichway;
 
 public class Vector{
-	public double x;
-	public double y;
-	public double z;
+	private double x;
+	private double y;
+	private double z;
 	private double lat = 90;
 	private double lng = 0;
 
@@ -27,11 +27,11 @@ public class Vector{
 		this.lat = lat;
 		this.lng = lng;
 	}
-	
+
 	public double getLat(){
 		return lat;
 	}
-	
+
 	public double getLong(){
 		return lng;
 	}
@@ -41,7 +41,7 @@ public class Vector{
 	}
 
 	public double magn(){
-		return Math.sqrt(this.sqr());
+		return Math.sqrt(sqr());
 	}
 
 	// İki vektörün dot product'ını döndürür
@@ -92,8 +92,7 @@ public class Vector{
 	}
 
 	public String getDistance(Vector v){
-		double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360
-											// km
+		double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360 km
 		double dist = constant * this.angle(v);
 		try{
 			if(dist >= 100)

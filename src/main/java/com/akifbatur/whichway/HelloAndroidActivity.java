@@ -36,7 +36,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class HelloAndroidActivity extends FragmentActivity implements DialogAddToFavorites.DialogListener, DialogShowFavorites.DialogListener{
+public class HelloAndroidActivity extends FragmentActivity implements
+		DialogAddToFavorites.DialogListener, DialogShowFavorites.DialogListener{
 
 	static int currentDegree = 0;
 	static int angle = 0;
@@ -59,9 +60,9 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 	SensorManager sm;
 	MyCompassListener cl = new MyCompassListener();
 	Sensor compass;
-	static Vector gps = new Vector(40.98707, 29.053081); // GPS koordinatı (İstanbul)
+	static Vector gps = new Vector(40.98921, 29.05504); // GPS koordinatı (Şu anki yerimiz)
 	static boolean gpsSet = false; // Konum bulundu mu?
-	static Vector geo = new Vector(90, 0); // Geocoder koordinatı (Kuzey Kutbu)
+	static Vector geo = new Vector(90, 0); // Geocoder koordinatı (Aranan yer)
 	static boolean geoSet = false; // Bir yer arandı mı?
 
 	@Override
@@ -103,12 +104,10 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 		timer.scheduleAtFixedRate(new java.util.TimerTask(){
 			@Override
 			public void run(){
-				if(gpsSet && geoSet){
-					angle = (int)gps.getDirection(geo);
-					dist = gps.getDistance(geo);
-				}
+				calcDirAndDist();
 			}
 		}, 1000, 5000);
+
 	}
 
 	@Override
@@ -130,7 +129,8 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 		sm.unregisterListener(cl);
 	}
 
-	public void onClick_Search(View v) throws IOException, ParserConfigurationException, SAXException{
+	public void onClick_Search(View v) throws IOException, ParserConfigurationException,
+			SAXException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
 
@@ -142,8 +142,9 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 		}
 		else{
 			// Yeni bir thread ile aranan yerin koordinatlarını al.
-			new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
-					+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
+			new RetreiveFeedTask()
+					.execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
+							+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
 		}
 	}
 
@@ -160,6 +161,42 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 		for(int i = 0; i < favoriteList.size(); i++)
 			favorites[i] = favoriteList.get(i).getLocation();
 		new DialogShowFavorites().show(getSupportFragmentManager(), "gf");
+	}
+
+	public void onDialogPositiveClick(DialogFragment df){
+		Dialog dialog = df.getDialog();
+		EditText et = (EditText)dialog.findViewById(R.id.locationName);
+		String name = et.getText().toString();
+		RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
+		int checked = rg.getCheckedRadioButtonId();
+		Vector pos = null;
+		if(checked == R.id.radioCurrent)
+			pos = gps;
+		else if(checked == R.id.radioSearched)
+			pos = geo;
+
+		long retVal = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
+		if(retVal >= 0)
+			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(),
+					"msg");
+		else
+			new DialogMessage().setMessage("Could not add")
+					.show(getSupportFragmentManager(), "msg");
+	}
+
+	public void favoriteChosen(int id){
+		Favorite chosen = favoriteList.get(id);
+		geo.setCoordinates(chosen.getLatitude(), chosen.getLongitude());
+		geoSet = true;
+		calcDirAndDist();
+	}
+
+	// Açı farkını ve uzaklığı hesapla
+	public void calcDirAndDist(){
+		if(gpsSet && geoSet){
+			angle = (int)gps.getDirection(geo);
+			dist = gps.getDistance(geo);
+		}
 	}
 
 	private class RetreiveFeedTask extends AsyncTask<String, Integer, String>{
@@ -181,13 +218,14 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 					Node nNode = nList.item(temp);
 					if(nNode.getNodeType() == Node.ELEMENT_NODE){
 						Element eElement = (Element)nNode;
-						double lat = Double.parseDouble(eElement.getElementsByTagName("lat").item(0)
-								.getTextContent());
-						double lng = Double.parseDouble(eElement.getElementsByTagName("lng").item(0)
-								.getTextContent());
+						double lat = Double.parseDouble(eElement.getElementsByTagName("lat")
+								.item(0).getTextContent());
+						double lng = Double.parseDouble(eElement.getElementsByTagName("lng")
+								.item(0).getTextContent());
 						// Geo update
 						geo.setCoordinates(lat, lng);
 						geoSet = true;
+						calcDirAndDist();
 					}
 				}
 			}
@@ -196,30 +234,5 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogAddT
 			}
 			return null;
 		}
-	}
-
-	public void onDialogPositiveClick(DialogFragment df){
-		Dialog dialog = df.getDialog();
-		EditText et = (EditText)dialog.findViewById(R.id.locationName);
-		String name = et.getText().toString();
-		RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
-		int checked = rg.getCheckedRadioButtonId();
-		Vector pos = null;
-		if(checked == R.id.radioCurrent)
-			pos = gps;
-		else if(checked == R.id.radioSearched)
-			pos = geo;
-		
-		long retVal = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
-		if(retVal >= 0)
-			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(), "msg");
-		else
-			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(), "msg");
-	}
-	
-	public void favoriteChosen(int id){
-		Favorite chosen = favoriteList.get(id);
-		geo.setCoordinates(chosen.getLatitude(), chosen.getLongitude());
-		geoSet = true;
 	}
 }
