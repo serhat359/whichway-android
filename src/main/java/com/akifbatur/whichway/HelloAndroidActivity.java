@@ -123,8 +123,8 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	@Override
 	protected void onResume(){
 		super.onResume();
-		sm.registerListener(cl, accelerometer, SensorManager.SENSOR_DELAY_UI);
-		sm.registerListener(cl, magnetometer, SensorManager.SENSOR_DELAY_UI);
+		sm.registerListener(cl, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+		sm.registerListener(cl, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 	@Override
