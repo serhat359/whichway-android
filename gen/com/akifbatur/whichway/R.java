@@ -210,18 +210,18 @@ containing a value of this type.
         public static final int needle=0x7f02001e;
     }
     public static final class id {
-        public static final int TextView01=0x7f050013;
-        public static final int TextView02=0x7f050014;
+        public static final int TextView01=0x7f050010;
+        public static final int TextView02=0x7f050011;
         public static final int action_settings=0x7f05001d;
-        public static final int angle=0x7f05000b;
-        public static final int btnSearch=0x7f05000f;
-        public static final int chsFav=0x7f050010;
+        public static final int angle=0x7f050018;
+        public static final int btnSearch=0x7f05000d;
+        public static final int chsFav=0x7f050017;
         public static final int compass=0x7f050009;
-        public static final int current=0x7f05000d;
-        public static final int debug=0x7f050018;
-        public static final int distance=0x7f050017;
-        public static final int geoLat=0x7f050015;
-        public static final int geoLong=0x7f050016;
+        public static final int currentLoc=0x7f05000b;
+        public static final int debug=0x7f050014;
+        public static final int distance=0x7f050015;
+        public static final int geoLat=0x7f050012;
+        public static final int geoLong=0x7f050013;
         public static final int hybrid=0x7f050004;
         public static final int locationName=0x7f050019;
         public static final int needle=0x7f05000a;
@@ -231,8 +231,8 @@ containing a value of this type.
         public static final int radioGroup=0x7f05001a;
         public static final int radioSearched=0x7f05001c;
         public static final int satellite=0x7f050002;
-        public static final int saveLoc=0x7f050011;
-        public static final int srchCoor=0x7f050012;
+        public static final int saveLoc=0x7f050016;
+        public static final int srchCoor=0x7f05000f;
         public static final int terrain=0x7f050003;
         public static final int textLat=0x7f050006;
         public static final int textLong=0x7f050005;

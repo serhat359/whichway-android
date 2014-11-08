@@ -19,11 +19,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="8dp"
         android:text="@string/boylam"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textLat"
@@ -37,8 +37,8 @@
 
     <ImageView
         android:id="@+id/compass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
@@ -46,31 +46,22 @@
 
     <ImageView
         android:id="@+id/needle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignLeft="@+id/compass"
         android:layout_alignTop="@+id/compass"
         android:scaleType="fitXY"
         android:src="@drawable/needle" />
 
     <TextView
-        android:id="@+id/angle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvHeading"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/tvHeading"
-        android:text="@string/angleDiff" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/current"
+        android:layout_below="@+id/currentLoc"
         android:layout_marginTop="12dp"
         android:text="@string/enlem"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvHeading"
@@ -80,21 +71,6 @@
         android:layout_alignParentTop="true"
         android:text="@string/heading" />
 
-    <EditText
-        android:id="@+id/textSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="@string/addressOrCoordinate"
-        android:inputType="text"
-        android:singleLine="true" >
-
-        <requestFocus />
-    </EditText>
-
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
@@ -102,36 +78,18 @@
         android:layout_alignTop="@+id/textSearch"
         android:layout_toRightOf="@+id/textSearch"
         android:onClick="onClick_Search"
-        android:text="@string/search" />
-
-    <Button
-        android:id="@+id/chsFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/saveLoc"
-        android:layout_below="@+id/saveLoc"
-        android:onClick="onClick_GetFavorites"
-        android:text="@string/chsFav" />
-
-    <TextView
-        android:id="@+id/current"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="53dp"
-        android:text="@string/gpsLoc"
-        android:textSize="24sp" />
+        android:text="@string/search"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/srchCoor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textSearch"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textSearch"
         android:layout_marginTop="12dp"
         android:text="@string/drctn"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/TextView01"
@@ -141,17 +99,17 @@
         android:layout_below="@+id/srchCoor"
         android:layout_marginTop="12dp"
         android:text="@string/enlem"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TextView01"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView01"
         android:layout_marginTop="8dp"
         android:text="@string/boylam"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/geoLat"
@@ -172,24 +130,6 @@
         android:text="@string/none"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/saveLoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/srchCoor"
-        android:layout_toRightOf="@+id/btnSearch"
-        android:onClick="onClick_AddToFavorites"
-        android:text="@string/savToFav" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/angle"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/angle"
-        android:text="@string/distance" />
-
     <TextView
         android:id="@+id/debug"
         android:layout_width="wrap_content"
@@ -197,5 +137,66 @@
         android:layout_alignTop="@+id/distance"
         android:layout_marginLeft="28dp"
         android:layout_toRightOf="@+id/distance" />
+
+    <Button
+        android:id="@+id/saveLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView02"
+        android:layout_below="@+id/TextView02"
+        android:layout_marginTop="35dp"
+        android:onClick="onClick_AddToFavorites"
+        android:text="@string/savToFav"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/chsFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/saveLoc"
+        android:layout_alignBottom="@+id/saveLoc"
+        android:layout_toRightOf="@+id/saveLoc"
+        android:onClick="onClick_GetFavorites"
+        android:text="@string/chsFav"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/textSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/addressOrCoordinate"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvHeading"
+        android:layout_below="@+id/tvHeading"
+        android:text="@string/angleDiff" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/angle"
+        android:layout_below="@+id/angle"
+        android:text="@string/distance" />
+
+    <TextView
+        android:id="@+id/currentLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/distance"
+        android:layout_below="@+id/distance"
+        android:layout_marginTop="35dp"
+        android:text="@string/gpsLoc"
+        android:textSize="20sp" />
 
 </RelativeLayout>
