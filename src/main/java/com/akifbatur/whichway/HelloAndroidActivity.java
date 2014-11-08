@@ -57,9 +57,10 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	public static TextView debug;
 
 	static DatabaseHandler db;
-	SensorManager sm;
+	static SensorManager sm;
 	MyCompassListener cl = new MyCompassListener();
-	Sensor compass;
+	Sensor accelerometer;
+	Sensor magnetometer;
 	static Vector gps = new Vector(40.98921, 29.05504); // GPS koordinatı (Şu anki yerimiz)
 	static boolean gpsSet = false; // Konum bulundu mu?
 	static Vector geo = new Vector(90, 0); // Geocoder koordinatı (Aranan yer)
@@ -98,7 +99,8 @@ public class HelloAndroidActivity extends FragmentActivity implements
 
 		// Sensör kurulumları
 		sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-		compass = sm.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+		accelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		magnetometer = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 		// Konumlar arası açı ve uzaklık hesaplama için timer
 		Timer timer = new Timer();
@@ -121,7 +123,8 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	@Override
 	protected void onResume(){
 		super.onResume();
-		sm.registerListener(cl, compass, SensorManager.SENSOR_DELAY_GAME);
+		sm.registerListener(cl, accelerometer, SensorManager.SENSOR_DELAY_UI);
+		sm.registerListener(cl, magnetometer, SensorManager.SENSOR_DELAY_UI);
 	}
 
 	@Override

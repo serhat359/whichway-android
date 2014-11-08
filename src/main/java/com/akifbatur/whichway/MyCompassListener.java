@@ -3,17 +3,26 @@ package com.akifbatur.whichway;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
 public class MyCompassListener implements SensorEventListener{
+
+	float[] mGravity;
+	float[] mGeomagnetic;
+	float toBeIgnored = 0f;
 
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 	}
 
 	public void onSensorChanged(SensorEvent event){
 		// get the angle around the z-axis rotated
-		int degree = (int)(event.values[0]);
+		float azimut = getAzimut(event);
+		if(azimut == toBeIgnored)
+			return;
+
+		int degree = (int)azimut;
 		int angle = HelloAndroidActivity.angle;
 		int newAngle = degree - angle;
 
@@ -41,5 +50,26 @@ public class MyCompassListener implements SensorEventListener{
 		// Start the animation
 		HelloAndroidActivity.needle.startAnimation(ra);
 		HelloAndroidActivity.currentDegree = -newAngle;
+	}
+
+	public float getAzimut(SensorEvent event){
+		if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+			mGravity = event.values;
+		if(event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+			mGeomagnetic = event.values;
+		if(mGravity != null && mGeomagnetic != null){
+			float R[] = new float[9];
+			float I[] = new float[9];
+			boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+			if(success){
+				float orientation[] = new float[3];
+				SensorManager.getOrientation(R, orientation);
+				return (float)Math.toDegrees(orientation[0]); // orientation contains: azimut, pitch and roll
+			}
+			else
+				return toBeIgnored;
+		}
+		else
+			return toBeIgnored;
 	}
 }
