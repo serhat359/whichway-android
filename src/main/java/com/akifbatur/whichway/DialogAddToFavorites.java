@@ -13,8 +13,8 @@ import android.widget.RadioGroup;
 
 public class DialogAddToFavorites extends DialogFragment{
 
-	String text = "";
-	DialogListener mListener;
+	private String text = "";
+	private DialogListener mListener;
 
 	public DialogAddToFavorites setMessage(String text){
 		this.text = text;

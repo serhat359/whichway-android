@@ -45,16 +45,16 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	static List<Favorite> favoriteList = null;
 	static String[] favorites = new String[0];
 
-	public static TextView textLat;
-	public static TextView textLong;
-	public static TextView tvHeading;
-	public static TextView angleDiff;
-	public static TextView distance;
-	public static TextView geoLat;
-	public static TextView geoLong;
-	public static ImageView needle;
+	static TextView textLat;
+	static TextView textLong;
+	static TextView tvHeading;
+	static TextView angleDiff;
+	static TextView distance;
+	static TextView geoLat;
+	static TextView geoLong;
+	static ImageView needle;
 	// Debug
-	public static TextView debug;
+	static TextView debug;
 
 	static DatabaseHandler db;
 	static SensorManager sm;
@@ -110,7 +110,6 @@ public class HelloAndroidActivity extends FragmentActivity implements
 				calcDirAndDist();
 			}
 		}, 1000, 5000);
-
 	}
 
 	@Override

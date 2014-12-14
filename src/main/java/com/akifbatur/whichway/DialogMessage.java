@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment;
 
 public class DialogMessage extends DialogFragment{
 
-	String message = "";
+	private String message = "";
 
 	public DialogMessage setMessage(String message){
 		this.message = message;
