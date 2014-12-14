@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="18" />
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="18" />
     
     <!-- Protect the map component of the application using application signature -->
     <permission android:name="com.akifbatur.whichway.permission.MAPS_RECIEVE"
