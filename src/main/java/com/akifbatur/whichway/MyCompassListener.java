@@ -11,7 +11,7 @@ public class MyCompassListener implements SensorEventListener{
 
 	float[] mGravity;
 	float[] mGeomagnetic;
-	float toBeIgnored = 0f;
+	final float toBeIgnored = 0f;
 
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 	}
