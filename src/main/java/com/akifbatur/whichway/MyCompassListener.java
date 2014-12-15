@@ -17,7 +17,6 @@ public class MyCompassListener implements SensorEventListener{
 	}
 
 	public void onSensorChanged(SensorEvent event){
-		// get the angle around the z-axis rotated
 		float azimut = getAzimut(event);
 		if(azimut == toBeIgnored)
 			return;
@@ -64,7 +63,7 @@ public class MyCompassListener implements SensorEventListener{
 			if(success){
 				float orientation[] = new float[3];
 				SensorManager.getOrientation(R, orientation);
-				return (float)Math.toDegrees(orientation[0]); // orientation contains: azimut, pitch and roll
+				return (float)Math.toDegrees(orientation[0]);
 			}
 			else
 				return toBeIgnored;
