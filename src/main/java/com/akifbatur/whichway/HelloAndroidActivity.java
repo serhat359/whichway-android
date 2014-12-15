@@ -198,7 +198,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	public void calcDirAndDist(){
 		if(gpsSet && geoSet){
 			angle = (int)gps.getDirection(geo);
-			dist = gps.getDistance(geo);
+			dist = Functions.formatToN(gps.getDistance(geo), 3) + " km";
 		}
 	}
 

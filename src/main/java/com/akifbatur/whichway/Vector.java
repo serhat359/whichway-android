@@ -91,22 +91,10 @@ public class Vector{
 		return angle;
 	}
 
-	public String getDistance(Vector v){
-		double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360 km
+	public double getDistance(Vector v){
+		final double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360 km
 		double dist = constant * this.angle(v);
-		try{
-			if(dist >= 100)
-				return (int)dist + " km";
-			else if(dist >= 1)
-				return (dist + "").substring(0, 4) + " km";
-			else if(dist >= 0.1)
-				return (int)(dist * 1000) + " m";
-			else
-				return (dist * 1000 + "").substring(0, 4) + " m";
-		}
-		catch(Exception e){
-			return "0 m";
-		}
+		return dist;
 	}
 
 	public String toString(){
