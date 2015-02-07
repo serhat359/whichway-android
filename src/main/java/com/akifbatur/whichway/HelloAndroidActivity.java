@@ -37,7 +37,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class HelloAndroidActivity extends FragmentActivity implements
-		DialogAddToFavorites.DialogListener, DialogShowFavorites.DialogListener{
+		DialogClickListener, DialogFavoriteListener{
 
 	static int currentDegree = 0;
 	static int angle = 0;

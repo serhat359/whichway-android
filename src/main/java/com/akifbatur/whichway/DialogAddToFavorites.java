@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 public class DialogAddToFavorites extends DialogFragment{
 
 	private String text = "";
-	private DialogListener mListener;
+	private DialogClickListener mListener;
 
 	public DialogAddToFavorites setMessage(String text){
 		this.text = text;
@@ -36,15 +36,11 @@ public class DialogAddToFavorites extends DialogFragment{
 		return builder.create();
 	}
 
-	public interface DialogListener{
-		public void onDialogPositiveClick(DialogFragment dialog);
-	}
-
 	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
 		try{
-			mListener = (DialogListener)activity;
+			mListener = (DialogClickListener)activity;
 		}
 		catch(ClassCastException e){
 			throw new ClassCastException(activity.toString() + " must implement DialogListener");

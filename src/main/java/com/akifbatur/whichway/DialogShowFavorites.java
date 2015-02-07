@@ -9,11 +9,7 @@ import android.support.v4.app.DialogFragment;
 
 public class DialogShowFavorites extends DialogFragment{
 
-	private DialogListener mListener;
-
-	public interface DialogListener{
-		public void favoriteChosen(int id);
-	}
+	private DialogFavoriteListener mListener;
 
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -33,7 +29,7 @@ public class DialogShowFavorites extends DialogFragment{
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
 		try{
-			mListener = (DialogListener)activity;
+			mListener = (DialogFavoriteListener)activity;
 		}
 		catch(ClassCastException e){
 			throw new ClassCastException(activity.toString() + " must implement DialogListener");
