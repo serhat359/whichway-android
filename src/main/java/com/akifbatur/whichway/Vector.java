@@ -92,7 +92,7 @@ public class Vector{
 	}
 
 	public double getDistance(Vector v){
-		final double constant = 117.478111951; // 2 * PI * 6731 (Earth's radius) / 360 km
+		final double constant = 2 * Math.PI * 6731 / 360;
 		double dist = constant * this.angle(v);
 		return dist;
 	}

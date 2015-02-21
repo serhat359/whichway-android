@@ -67,7 +67,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 				favorite.setLocation(cursor.getString(1));
 				favorite.setLatitude(cursor.getDouble(2));
 				favorite.setLongitude(cursor.getDouble(3));
-				// Adding to list
 				favorites.add(favorite);
 			}
 			while(cursor.moveToNext());

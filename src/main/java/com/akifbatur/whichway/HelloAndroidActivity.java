@@ -53,15 +53,13 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	static TextView geoLat;
 	static TextView geoLong;
 	static ImageView needle;
-	// Debug
-	static TextView debug;
 
 	static DatabaseHandler db;
 	static SensorManager sm;
 	MyCompassListener cl = new MyCompassListener();
 	Sensor accelerometer;
 	Sensor magnetometer;
-	static Vector gps = new Vector(40.98921, 29.05504); // GPS koordinatı (Şu anki yerimiz)
+	static Vector gps = new Vector(41, 29); // GPS koordinatı (Şu anki yerimiz)
 	static boolean gpsSet = false; // Konum bulundu mu?
 	static Vector geo = new Vector(90, 0); // Geocoder koordinatı (Aranan yer)
 	static boolean geoSet = false; // Bir yer arandı mı?
@@ -94,8 +92,6 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		geoLat = (TextView)findViewById(R.id.geoLat);
 		geoLong = (TextView)findViewById(R.id.geoLong);
 		needle = (ImageView)findViewById(R.id.needle);
-		// debug
-		debug = (TextView)findViewById(R.id.debug);
 
 		// Sensör kurulumları
 		sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);

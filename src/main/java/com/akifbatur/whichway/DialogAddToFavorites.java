@@ -30,7 +30,7 @@ public class DialogAddToFavorites extends DialogFragment{
 					}
 				}).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int id){
-						// Will be overriden
+						// Will be overridden
 					}
 				});
 		return builder.create();
