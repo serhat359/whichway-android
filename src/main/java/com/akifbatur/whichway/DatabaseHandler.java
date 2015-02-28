@@ -29,9 +29,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_LAT
 				+ " DOUBLE, " + KEY_LONG + " DOUBLE" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
-		// TODO database ilk yapıldığında eklenecekler buraya insert ile yazılacak
-		// addFavorite(new Favorite("Paris", 48.85661, 2.35222));
-		// addFavorite(new Favorite("Kaaba", 21.42162, 39.82479));
 	}
 
 	@Override
