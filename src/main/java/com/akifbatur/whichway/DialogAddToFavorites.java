@@ -55,7 +55,7 @@ public class DialogAddToFavorites extends DialogFragment{
 		edittext.setText(text);
 
 		if(d != null){
-			Button positiveButton = (Button)d.getButton(Dialog.BUTTON_POSITIVE);
+			Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
 			positiveButton.setOnClickListener(new View.OnClickListener(){
 				public void onClick(View v){
 					String tag = "notSet";

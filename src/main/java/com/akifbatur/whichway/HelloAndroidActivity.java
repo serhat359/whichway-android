@@ -9,13 +9,11 @@ import java.util.Timer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -127,9 +125,11 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		super.onPause();
 		sm.unregisterListener(cl);
 	}
-
-	public void onClick_Search(View v) throws IOException, ParserConfigurationException,
-			SAXException{
+	
+	/**
+	 * @param v View
+	 */
+	public void onClick_Search(View v) throws IOException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
 
@@ -146,13 +146,19 @@ public class HelloAndroidActivity extends FragmentActivity implements
 							+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
 		}
 	}
-
+	
+	/**
+	 * @param v View
+	 */
 	public void onClick_AddToFavorites(View v){
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
 		new DialogAddToFavorites().setMessage(sText).show(getSupportFragmentManager(), "atf");
 	}
 
+	/**
+	 * @param v View
+	 */
 	public void onClick_GetFavorites(View v){
 		favoriteList = db.getAllFavorites();
 		// Listeden array'e doldur
