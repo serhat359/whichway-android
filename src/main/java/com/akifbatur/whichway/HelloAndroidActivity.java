@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Timer;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -40,7 +40,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	static int currentDegree = 0;
 	static int angle = 0;
 	static String dist = "Unknown";
-	static List<Favorite> favoriteList = null;
+	static ArrayList<Favorite> favoriteList = null;
 	static String[] favorites = new String[0];
 
 	static TextView textLat;
@@ -108,7 +108,6 @@ public class HelloAndroidActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(com.akifbatur.whichway.R.menu.main, menu);
 		return true;
 	}
@@ -126,10 +125,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		sm.unregisterListener(cl);
 	}
 	
-	/**
-	 * @param v View
-	 */
-	public void onClick_Search(View v) throws IOException{
+	public void onClick_Search(@SuppressWarnings("unused") View v) throws IOException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
 
@@ -147,19 +143,13 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		}
 	}
 	
-	/**
-	 * @param v View
-	 */
-	public void onClick_AddToFavorites(View v){
+	public void onClick_AddToFavorites(@SuppressWarnings("unused") View v){
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
 		new DialogAddToFavorites().setMessage(sText).show(getSupportFragmentManager(), "atf");
 	}
 
-	/**
-	 * @param v View
-	 */
-	public void onClick_GetFavorites(View v){
+	public void onClick_GetFavorites(@SuppressWarnings("unused") View v){
 		favoriteList = db.getAllFavorites();
 		// Listeden array'e doldur
 		favorites = new String[favoriteList.size()];
@@ -196,7 +186,6 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		calcDirAndDist();
 	}
 
-	// Açı farkını ve uzaklığı hesapla
 	public void calcDirAndDist(){
 		if(gpsSet && geoSet){
 			angle = (int)gps.getDirection(geo);

@@ -12,7 +12,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "favoritesManager";
-	private static final String TABLE_CONTACTS = "favorites";
+	private static final String TABLE_FAVORITES = "favorites";
 
 	private static final String KEY_ID = "id";
 	private static final String KEY_NAME = "name";
@@ -25,15 +25,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db){
-		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "(" + KEY_ID
+		String createTableQuery = "CREATE TABLE " + TABLE_FAVORITES + "(" + KEY_ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, " + KEY_LAT
 				+ " DOUBLE, " + KEY_LONG + " DOUBLE" + ")";
-		db.execSQL(CREATE_CONTACTS_TABLE);
+		db.execSQL(createTableQuery);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITES);
 		onCreate(db);
 	}
 
@@ -45,7 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_LAT, f.getLatitude());
 		values.put(KEY_LONG, f.getLongitude());
 
-		long ret = db.insert(TABLE_CONTACTS, null, values);
+		long ret = db.insert(TABLE_FAVORITES, null, values);
 		db.close();
 		return ret;
 	}
@@ -53,7 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public ArrayList<Favorite> getAllFavorites(){
 		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
 
-		String selectQuery = "SELECT * FROM " + TABLE_CONTACTS;
+		String selectQuery = "SELECT * FROM " + TABLE_FAVORITES;
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -79,13 +79,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_LAT, f.getLatitude());
 		values.put(KEY_LONG, f.getLongitude());
 
-		db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
+		db.update(TABLE_FAVORITES, values, KEY_ID + " = ?",
 				new String[] { String.valueOf(f.getId()) });
 	}
 
 	public void deleteFavorite(Favorite f){ // Use only on objects got from the database
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_CONTACTS, KEY_ID + " = ?", new String[] { String.valueOf(f.getId()) });
+		db.delete(TABLE_FAVORITES, KEY_ID + " = ?", new String[] { String.valueOf(f.getId()) });
 		db.close();
 	}
 }
