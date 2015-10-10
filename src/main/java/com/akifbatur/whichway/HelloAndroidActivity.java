@@ -29,6 +29,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -65,6 +67,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		hideTopBar();
 		setContentView(R.layout.activity_main);
 
 		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -104,6 +107,14 @@ public class HelloAndroidActivity extends FragmentActivity implements
 				calcDirAndDist();
 			}
 		}, 1000, 5000);
+	}
+
+	private void hideTopBar(){
+		//Remove title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		//Remove notification bar
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
 
 	@Override
