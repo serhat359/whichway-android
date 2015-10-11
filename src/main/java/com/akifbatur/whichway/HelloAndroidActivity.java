@@ -6,6 +6,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,7 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -145,19 +146,27 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 
 	public void onClick_Search(@SuppressWarnings("unused") View v) throws IOException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
-		String sText = search.getText().toString();
+		String searchText = search.getText().toString();
 
-		String num = "\\d+(((,|\\.)\\d+)|\\s*\\d+(\\s*\\d+)?)?";
-		String pattern = "([nNsS-])?\\s*" + num + "\\s*([eEwW-]|,)\\s*" + num;
+		String numberPattern = "(-)?\\d+(\\.\\d+)?";
+		String wholePattern = numberPattern + "\\s*(,)\\s*" + numberPattern;
 
-		if(sText.matches(pattern)){
-			// TODO
+		if(searchText.matches(wholePattern)){
+			Pattern p = Pattern.compile(numberPattern);
+			Matcher m = p.matcher(searchText);
+			
+			m.find();
+			double lat = Double.parseDouble(m.group());
+			m.find();
+			double lng = Double.parseDouble(m.group());
+			
+			setCoordinate(lat, lng);
 		}
 		else{
 			// Yeni bir thread ile aranan yerin koordinatlarını al.
 			new RetreiveFeedTask()
 					.execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
-							+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
+							+ URLEncoder.encode(searchText, "UTF-8") + "&sensor=true");
 		}
 	}
 
@@ -235,10 +244,8 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 								.item(0).getTextContent());
 						double lng = Double.parseDouble(resultElement.getElementsByTagName("lng")
 								.item(0).getTextContent());
-						// Geo update
-						geo.setCoordinates(lat, lng);
-						geoSet = true;
-						calcDirAndDist();
+						
+						setCoordinate(lat, lng);
 					}
 				}
 				else{
@@ -251,6 +258,12 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 
 			return null;
 		}
+	}
+
+	private void setCoordinate(double lat, double lng){
+		geo.setCoordinates(lat, lng);
+		geoSet = true;
+		calcDirAndDist();
 	}
 
 	private void debug(String text){
