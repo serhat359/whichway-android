@@ -36,8 +36,10 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class HelloAndroidActivity extends FragmentActivity implements
-		DialogClickListener, DialogFavoriteListener{
+public class HelloAndroidActivity extends FragmentActivity implements DialogClickListener,
+		DialogFavoriteListener{
+
+	final boolean debugEnabled = false;
 
 	static int currentDegree = 0;
 	static int angle = 0;
@@ -53,6 +55,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	static TextView geoLat;
 	static TextView geoLong;
 	static ImageView needle;
+	static TextView debugView;
 
 	static DatabaseHandler db;
 	static SensorManager sm;
@@ -69,6 +72,9 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		hideTopBar();
 		setContentView(R.layout.activity_main);
+
+		// debug view
+		debugView = (TextView)findViewById(R.id.debug);
 
 		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
@@ -110,11 +116,12 @@ public class HelloAndroidActivity extends FragmentActivity implements
 	}
 
 	private void hideTopBar(){
-		//Remove title bar
+		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		//Remove notification bar
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		// Remove notification bar
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
 
 	@Override
@@ -135,7 +142,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 		super.onPause();
 		sm.unregisterListener(cl);
 	}
-	
+
 	public void onClick_Search(@SuppressWarnings("unused") View v) throws IOException{
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
@@ -153,7 +160,7 @@ public class HelloAndroidActivity extends FragmentActivity implements
 							+ URLEncoder.encode(sText, "UTF-8") + "&sensor=true");
 		}
 	}
-	
+
 	public void onClick_AddToFavorites(@SuppressWarnings("unused") View v){
 		EditText search = (EditText)findViewById(R.id.textSearch);
 		String sText = search.getText().toString();
@@ -217,15 +224,16 @@ public class HelloAndroidActivity extends FragmentActivity implements
 
 				doc.getDocumentElement().normalize();
 
-				NodeList nList = doc.getElementsByTagName("result");
+				String status = doc.getElementsByTagName("status").item(0).getTextContent();
 
-				for(int temp = 0; temp < nList.getLength(); temp++){
-					Node nNode = nList.item(temp);
-					if(nNode.getNodeType() == Node.ELEMENT_NODE){
-						Element eElement = (Element)nNode;
-						double lat = Double.parseDouble(eElement.getElementsByTagName("lat")
+				if(status.equals("OK")){
+					Node resultNode = doc.getElementsByTagName("result").item(0);
+
+					if(resultNode.getNodeType() == Node.ELEMENT_NODE){
+						Element resultElement = (Element)resultNode;
+						double lat = Double.parseDouble(resultElement.getElementsByTagName("lat")
 								.item(0).getTextContent());
-						double lng = Double.parseDouble(eElement.getElementsByTagName("lng")
+						double lng = Double.parseDouble(resultElement.getElementsByTagName("lng")
 								.item(0).getTextContent());
 						// Geo update
 						geo.setCoordinates(lat, lng);
@@ -233,11 +241,20 @@ public class HelloAndroidActivity extends FragmentActivity implements
 						calcDirAndDist();
 					}
 				}
+				else{
+					debug(status);
+				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
 			}
+
 			return null;
 		}
+	}
+
+	private void debug(String text){
+		if(debugEnabled)
+			debugView.setText(text);
 	}
 }
