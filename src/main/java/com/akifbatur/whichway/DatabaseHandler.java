@@ -41,9 +41,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 
-		values.put(KEY_NAME, f.getLocation());
-		values.put(KEY_LAT, f.getLatitude());
-		values.put(KEY_LONG, f.getLongitude());
+		values.put(KEY_NAME, f.location);
+		values.put(KEY_LAT, f.latitude);
+		values.put(KEY_LONG, f.longitude);
 
 		long ret = db.insert(TABLE_FAVORITES, null, values);
 		db.close();
@@ -60,10 +60,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		if(cursor.moveToFirst()){
 			do{
 				Favorite favorite = new Favorite();
-				favorite.setID(cursor.getInt(0));
-				favorite.setLocation(cursor.getString(1));
-				favorite.setLatitude(cursor.getDouble(2));
-				favorite.setLongitude(cursor.getDouble(3));
+				favorite.id = cursor.getInt(0);
+				favorite.location = cursor.getString(1);
+				favorite.latitude = cursor.getDouble(2);
+				favorite.longitude = cursor.getDouble(3);
 				favorites.add(favorite);
 			}
 			while(cursor.moveToNext());
@@ -75,17 +75,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 
-		values.put(KEY_NAME, f.getLocation());
-		values.put(KEY_LAT, f.getLatitude());
-		values.put(KEY_LONG, f.getLongitude());
+		values.put(KEY_NAME, f.location);
+		values.put(KEY_LAT, f.latitude);
+		values.put(KEY_LONG, f.longitude);
 
-		db.update(TABLE_FAVORITES, values, KEY_ID + " = ?",
-				new String[] { String.valueOf(f.getId()) });
+		db.update(TABLE_FAVORITES, values, KEY_ID + " = ?", new String[] { String.valueOf(f.id) });
 	}
 
 	public void deleteFavorite(Favorite f){ // Use only on objects got from the database
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_FAVORITES, KEY_ID + " = ?", new String[] { String.valueOf(f.getId()) });
+		db.delete(TABLE_FAVORITES, KEY_ID + " = ?", new String[] { String.valueOf(f.id) });
 		db.close();
 	}
 }

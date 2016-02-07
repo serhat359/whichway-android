@@ -181,7 +181,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 		// Listeden array'e doldur
 		favorites = new String[favoriteList.size()];
 		for(int i = 0; i < favoriteList.size(); i++)
-			favorites[i] = favoriteList.get(i).getLocation();
+			favorites[i] = favoriteList.get(i).location;
 		new DialogShowFavorites().show(getSupportFragmentManager(), "gf");
 	}
 
@@ -208,7 +208,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 
 	public void favoriteChosen(int id){
 		Favorite chosen = favoriteList.get(id);
-		geo.setCoordinates(chosen.getLatitude(), chosen.getLongitude());
+		geo.setCoordinates(chosen.latitude, chosen.longitude);
 		geoSet = true;
 		calcDirAndDist();
 	}
