@@ -254,6 +254,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 			}
 			catch(Exception e){
 				e.printStackTrace();
+				debug(e.getMessage());
 			}
 
 			return null;
