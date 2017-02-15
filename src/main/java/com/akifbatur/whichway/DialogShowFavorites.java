@@ -13,15 +13,14 @@ public class DialogShowFavorites extends DialogFragment{
 
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.favorites)
-				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id){
-					}
-				}).setItems(HelloAndroidActivity.favorites, new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id){
-						mListener.favoriteChosen(id);
-					}
-				});
+		builder.setTitle(R.string.favorites).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int id){
+			}
+		}).setItems(HelloAndroidActivity.favorites, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int id){
+				mListener.favoriteChosen(id);
+			}
+		});
 		return builder.create();
 	}
 

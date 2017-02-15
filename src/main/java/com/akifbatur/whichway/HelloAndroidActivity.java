@@ -38,8 +38,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class HelloAndroidActivity extends FragmentActivity
-		implements DialogClickListener, DialogFavoriteListener{
+public class HelloAndroidActivity extends FragmentActivity implements DialogClickListener, DialogFavoriteListener{
 
 	final boolean debugEnabled = false;
 
@@ -122,7 +121,7 @@ public class HelloAndroidActivity extends FragmentActivity
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// Remove notification bar
-		//this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		// this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
 
 	@Override
@@ -165,9 +164,8 @@ public class HelloAndroidActivity extends FragmentActivity
 		else{
 			if(isConnectedToInternet()){
 				// Yeni bir thread ile aranan yerin koordinatlarını al.
-				new RetreiveFeedTask()
-						.execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
-								+ URLEncoder.encode(searchText, "UTF-8") + "&sensor=true");
+				new RetreiveFeedTask().execute("http://maps.googleapis.com/maps/api/geocode/xml?address="
+						+ URLEncoder.encode(searchText, "UTF-8") + "&sensor=true");
 			}
 			else{
 				showMessage("Check Your Internet Connection", Message.MessageDuration.SHORT);
@@ -204,11 +202,9 @@ public class HelloAndroidActivity extends FragmentActivity
 
 		long retVal = db.addFavorite(new Favorite(name, pos.getLat(), pos.getLong()));
 		if(retVal >= 0)
-			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(),
-					"msg");
+			new DialogMessage().setMessage("Successfully added").show(getSupportFragmentManager(), "msg");
 		else
-			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(),
-					"msg");
+			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(), "msg");
 	}
 
 	public void favoriteChosen(int id){
@@ -245,10 +241,10 @@ public class HelloAndroidActivity extends FragmentActivity
 
 					if(resultNode.getNodeType() == Node.ELEMENT_NODE){
 						Element resultElement = (Element)resultNode;
-						double lat = Double.parseDouble(
-								resultElement.getElementsByTagName("lat").item(0).getTextContent());
-						double lng = Double.parseDouble(
-								resultElement.getElementsByTagName("lng").item(0).getTextContent());
+						double lat = Double
+								.parseDouble(resultElement.getElementsByTagName("lat").item(0).getTextContent());
+						double lng = Double
+								.parseDouble(resultElement.getElementsByTagName("lng").item(0).getTextContent());
 
 						setCoordinate(lat, lng);
 					}
@@ -278,8 +274,7 @@ public class HelloAndroidActivity extends FragmentActivity
 	}
 
 	private boolean isNetworkConnected(){
-		ConnectivityManager cm = (ConnectivityManager)getSystemService(
-				Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		return cm.getActiveNetworkInfo() != null;
 	}

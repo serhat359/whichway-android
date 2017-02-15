@@ -24,15 +24,14 @@ public class DialogAddToFavorites extends DialogFragment{
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		View view = getActivity().getLayoutInflater().inflate(R.layout.menu, null);
-		builder.setView(view)
-				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id){
-					}
-				}).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id){
-						// Will be overridden
-					}
-				});
+		builder.setView(view).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int id){
+			}
+		}).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int id){
+				// Will be overridden
+			}
+		});
 		return builder.create();
 	}
 
@@ -63,17 +62,13 @@ public class DialogAddToFavorites extends DialogFragment{
 					RadioGroup radioGroup = (RadioGroup)getDialog().findViewById(R.id.radioGroup);
 					int checked = radioGroup.getCheckedRadioButtonId();
 					if(edittext.getText().toString().equals(""))
-						new DialogMessage().setMessage("Please set a name").show(
-								getFragmentManager(), tag);
+						new DialogMessage().setMessage("Please set a name").show(getFragmentManager(), tag);
 					else if(checked < 0)
-						new DialogMessage().setMessage("Please choose an option").show(
-								getFragmentManager(), tag);
+						new DialogMessage().setMessage("Please choose an option").show(getFragmentManager(), tag);
 					else if(checked == R.id.radioCurrent && !HelloAndroidActivity.gpsSet)
-						new DialogMessage().setMessage("No GPS data").show(getFragmentManager(),
-								tag);
+						new DialogMessage().setMessage("No GPS data").show(getFragmentManager(), tag);
 					else if(checked == R.id.radioSearched && !HelloAndroidActivity.geoSet)
-						new DialogMessage().setMessage("Please search a place first").show(
-								getFragmentManager(), tag);
+						new DialogMessage().setMessage("Please search a place first").show(getFragmentManager(), tag);
 					else{
 						mListener.onDialogPositiveClick(DialogAddToFavorites.this);
 						dismiss();
