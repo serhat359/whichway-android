@@ -32,7 +32,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -217,7 +216,11 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 	public void calcDirAndDist(){
 		if(gpsSet && geoSet){
 			angle = (int)gps.getDirection(geo);
-			dist = Functions.formatToN(gps.getDistance(geo), 3) + " km";
+			double distanceKm = gps.getDistance(geo);
+			String distance = Functions.formatToN(distanceKm, 3) + " km";
+			int minutesToArrive = (int)(distanceKm * 1000 / 60);
+			String minutes = ", " + minutesToArrive + " dk";
+			dist = distance + minutes;
 		}
 	}
 

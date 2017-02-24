@@ -91,8 +91,9 @@ public class Vector{
 		return angle;
 	}
 
+	// Returns the flight distance in kilometers
 	public double getDistance(Vector v){
-		final double constant = 2 * Math.PI * 6731 / 360;
+		final double constant = 2.0 * Math.PI * 6731.0 / 360.0;
 		double dist = constant * this.angle(v);
 		return dist;
 	}
