@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +31,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -40,11 +40,11 @@ import android.widget.TextView;
 public class HelloAndroidActivity extends FragmentActivity implements DialogClickListener, DialogFavoriteListener{
 
 	final boolean debugEnabled = false;
+	final int FAVORITE_ACTIVITY = 0;
 
 	static int currentDegree = 0;
 	static int angle = 0;
 	static String dist = "Unknown";
-	static ArrayList<Favorite> favoriteList = null;
 	static String[] favorites = new String[0];
 
 	static TextView textLat;
@@ -113,6 +113,28 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 				calcDirAndDist();
 			}
 		}, 1000, 5000);
+
+		Button next = (Button)findViewById(R.id.chsFav);
+		next.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View view){
+				Intent myIntent = new Intent(view.getContext(), FavoritesActivity.class);
+				startActivityForResult(myIntent, FAVORITE_ACTIVITY);
+			}
+		});
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode){
+			case (FAVORITE_ACTIVITY):{
+				if(resultCode != 0){
+					int favId = resultCode;
+					favoriteChosen(favId);
+				}
+				break;
+			}
+		}
 	}
 
 	private void hideTopBar(){
@@ -178,15 +200,6 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 		new DialogAddToFavorites().setMessage(sText).show(getSupportFragmentManager(), "atf");
 	}
 
-	public void onClick_GetFavorites(@SuppressWarnings("unused") View v){
-		favoriteList = db.getAllFavorites();
-		// Listeden array'e doldur
-		favorites = new String[favoriteList.size()];
-		for(int i = 0; i < favoriteList.size(); i++)
-			favorites[i] = favoriteList.get(i).location;
-		new DialogShowFavorites().show(getSupportFragmentManager(), "gf");
-	}
-
 	public void onDialogPositiveClick(DialogFragment df){
 		Dialog dialog = df.getDialog();
 		EditText et = (EditText)dialog.findViewById(R.id.locationName);
@@ -207,10 +220,14 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 	}
 
 	public void favoriteChosen(int id){
-		Favorite chosen = favoriteList.get(id);
-		geo.setCoordinates(chosen.latitude, chosen.longitude);
-		geoSet = true;
-		calcDirAndDist();
+		if(id >= 1){
+			Favorite chosen = db.getFavoriteByID(id);
+			geo.setCoordinates(chosen.latitude, chosen.longitude);
+			geoSet = true;
+			calcDirAndDist();
+		}
+		else
+			showMessage("Called favorite with id:" + id, Message.MessageDuration.SHORT);
 	}
 
 	public void calcDirAndDist(){

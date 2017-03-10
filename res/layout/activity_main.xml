@@ -156,7 +156,6 @@
         android:layout_alignBaseline="@+id/saveLoc"
         android:layout_alignBottom="@+id/saveLoc"
         android:layout_toRightOf="@+id/saveLoc"
-        android:onClick="onClick_GetFavorites"
         android:text="@string/chsFav"
         android:textSize="16sp" />
 

@@ -1,6 +1,7 @@
 package com.akifbatur.whichway;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -59,16 +60,27 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
 		if(cursor.moveToFirst()){
 			do{
-				Favorite favorite = new Favorite();
-				favorite.id = cursor.getInt(0);
-				favorite.location = cursor.getString(1);
-				favorite.latitude = cursor.getDouble(2);
-				favorite.longitude = cursor.getDouble(3);
+				Favorite favorite = cursorToFavorite(cursor);
 				favorites.add(favorite);
 			}
 			while(cursor.moveToNext());
 		}
 		return favorites;
+	}
+
+	public Favorite getFavoriteByID(int id){
+		String selectQuery = String.format(Locale.getDefault(), "SELECT * FROM %s WHERE %s=%d", TABLE_FAVORITES, KEY_ID,
+				id);
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		if(cursor.moveToFirst()){
+			Favorite favorite = cursorToFavorite(cursor);
+			return favorite;
+		}
+		else
+			return null;
 	}
 
 	public void updateFavorite(Favorite f){ // Use only on objects got from the database
@@ -86,5 +98,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_FAVORITES, KEY_ID + " = ?", new String[] { String.valueOf(f.id) });
 		db.close();
+	}
+
+	private Favorite cursorToFavorite(Cursor cursor){
+		Favorite favorite = new Favorite();
+		favorite.id = cursor.getInt(0);
+		favorite.location = cursor.getString(1);
+		favorite.latitude = cursor.getDouble(2);
+		favorite.longitude = cursor.getDouble(3);
+		return favorite;
 	}
 }
