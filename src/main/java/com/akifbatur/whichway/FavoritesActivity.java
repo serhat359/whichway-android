@@ -40,16 +40,13 @@ public class FavoritesActivity extends Activity{
 	private void setUpFavoriteList(){
 		ListView listView = (ListView)findViewById(R.id.listView1);
 
-		ArrayList<Favorite> favorites = getAllFavorites();
-
-		// ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-		// map(listElements));
+		ArrayList<Favorite> favorites = getDB().getAllFavorites();
 
 		FavoriteAdapter<Favorite> adapter = new FavoriteAdapter<Favorite>(favorites){
 
 			@Override
 			String elementToString(Favorite element){
-				return element.location; 
+				return element.location;
 			}
 
 			@Override
@@ -75,16 +72,12 @@ public class FavoritesActivity extends Activity{
 		});
 	}
 
-	private ArrayList<Favorite> getAllFavorites(){
-		return getDB().getAllFavorites();
-	}
-
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
 		if(v.getId() == R.id.listView1){
 			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
 
-			menu.setHeaderTitle(getAllFavorites().get(info.position).location);
+			menu.setHeaderTitle(getDB().getFavoriteByID((int)info.id).location);
 
 			for(int i = 0; i < favoriteActions.length; i++){
 				menu.add(Menu.NONE, i, i, favoriteActions[i].name());
@@ -96,7 +89,7 @@ public class FavoritesActivity extends Activity{
 	public boolean onContextItemSelected(MenuItem item){
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 		int selectedActionID = item.getItemId();
-		Favorite selectedFavorite = getAllFavorites().get(info.position);
+		Favorite selectedFavorite = getDB().getFavoriteByID((int)info.id);
 
 		if(selectedActionID == FavoriteAction.Delete.value){
 			getDB().deleteFavorite(selectedFavorite);

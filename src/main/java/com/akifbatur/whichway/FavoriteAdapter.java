@@ -44,7 +44,6 @@ public abstract class FavoriteAdapter<E>extends BaseAdapter{
 
 		E element = getItem(position);
 
-		// TODO replace findViewById by ViewHolder
 		((TextView)result.findViewById(android.R.id.text1)).setText(elementToString(element));
 
 		return result;
