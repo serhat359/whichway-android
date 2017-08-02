@@ -116,6 +116,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 
 		Button next = (Button)findViewById(R.id.chsFav);
 		next.setOnClickListener(new View.OnClickListener(){
+			@Override
 			public void onClick(View view){
 				Intent myIntent = new Intent(view.getContext(), FavoritesActivity.class);
 				startActivityForResult(myIntent, FAVORITE_ACTIVITY);
@@ -200,6 +201,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 		new DialogAddToFavorites().setMessage(sText).show(getSupportFragmentManager(), "atf");
 	}
 
+	@Override
 	public void onDialogPositiveClick(DialogFragment df){
 		Dialog dialog = df.getDialog();
 		EditText et = (EditText)dialog.findViewById(R.id.locationName);
@@ -219,6 +221,7 @@ public class HelloAndroidActivity extends FragmentActivity implements DialogClic
 			new DialogMessage().setMessage("Could not add").show(getSupportFragmentManager(), "msg");
 	}
 
+	@Override
 	public void favoriteChosen(int id){
 		if(id >= 1){
 			Favorite chosen = db.getFavoriteByID(id);

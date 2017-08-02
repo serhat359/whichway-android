@@ -21,13 +21,16 @@ public class DialogAddToFavorites extends DialogFragment{
 		return this;
 	}
 
+	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		View view = getActivity().getLayoutInflater().inflate(R.layout.menu, null);
 		builder.setView(view).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+			@Override
 			public void onClick(DialogInterface dialog, int id){
 			}
 		}).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
+			@Override
 			public void onClick(DialogInterface dialog, int id){
 				// Will be overridden
 			}
@@ -56,6 +59,7 @@ public class DialogAddToFavorites extends DialogFragment{
 		if(d != null){
 			Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
 			positiveButton.setOnClickListener(new View.OnClickListener(){
+				@Override
 				public void onClick(View v){
 					String tag = "notSet";
 					EditText edittext = (EditText)getDialog().findViewById(R.id.locationName);

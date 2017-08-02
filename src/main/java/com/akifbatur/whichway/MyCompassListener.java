@@ -13,9 +13,11 @@ public class MyCompassListener implements SensorEventListener{
 	float[] mGeomagnetic;
 	final float toBeIgnored = 0f;
 
+	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy){
 	}
 
+	@Override
 	public void onSensorChanged(SensorEvent event){
 		float azimut = getAzimut(event);
 		if(azimut == toBeIgnored)

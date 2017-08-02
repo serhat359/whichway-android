@@ -15,9 +15,11 @@ public class DialogMessage extends DialogFragment{
 		return this;
 	}
 
+	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState){
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener(){
+			@Override
 			public void onClick(DialogInterface dialog, int id){
 			}
 		}).setMessage(message);

@@ -98,6 +98,7 @@ public class Vector{
 		return dist;
 	}
 
+	@Override
 	public String toString(){
 		return "X: " + x + " Y: " + y + " Z: " + z;
 	}
